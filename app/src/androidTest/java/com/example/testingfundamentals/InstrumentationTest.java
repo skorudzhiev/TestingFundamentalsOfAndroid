@@ -1,6 +1,8 @@
 package com.example.testingfundamentals;
 
 import android.support.test.rule.ActivityTestRule;
+import android.util.Log;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -23,6 +25,7 @@ import static org.hamcrest.core.AllOf.allOf;
 
 public class InstrumentationTest {
 
+    private static final String TAG = "TAG";
     /**
      * {@link ActivityTestRule} is a JUnit {@link Rule @Rule} to launch your activity under test.
      *
@@ -33,7 +36,12 @@ public class InstrumentationTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mMainActivityActivityTestRule =
-            new ActivityTestRule<>(MainActivity.class);
+            new ActivityTestRule<>(MainActivity.class, true);
+
+    @Before
+    public void beforeOpeningActivity() throws Exception {
+        Log.v(TAG, "This is executed before the tests down below");
+    }
 
     @Test
     public void openDetailsActivity_MatchingTypedTextOnScreen() throws Exception {
