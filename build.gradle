@@ -42,6 +42,7 @@ ext {
     runnerVersion = '1.0.2'
     rulesVersion = '1.0.2'
     espressoVersion = '3.0.2'
+
 }
 
 task clean(type: Delete) {
