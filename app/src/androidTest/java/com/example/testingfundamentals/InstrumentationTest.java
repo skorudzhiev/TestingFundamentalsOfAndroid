@@ -55,7 +55,37 @@ public class InstrumentationTest {
         // Verify note is displayed on Screen
         onView(withText(testNote)).check(matches(isDisplayed()));
 
+    }
 
+    @Test
+    public void openDetailsActivity_ValidateListViewIsCleared() throws Exception {
+        String testNote = "Espresso";
+        String testEmpty = "";
+
+        onView(withId(R.id.fab)).perform(click());
+
+        onView(withId(R.id.add_text)).check(matches(isDisplayed()));
+
+        // Add a text for the note
+        onView(withId(R.id.add_text)).perform(typeText(testNote), closeSoftKeyboard());
+
+        // Save the note
+        onView(withId(R.id.save_text)).perform(click());
+
+        // Should be used to validate that the typed above note is present on the Screen
+        onData(allOf(is(instanceOf(Map.class)), hasEntry(equalTo("Espresso"), is("item: 1"))));
+
+        // Verify note is displayed on Screen
+        onView(withText(testNote)).check(matches(isDisplayed()));
+
+        // Clear notes
+        onView(withId(R.id.clear_text)).perform(click());
+
+        // Should be used to validate that the typed above note is present on the Screen
+        onData(allOf(is(instanceOf(Map.class)), hasEntry(equalTo(""), is("item: 1"))));
+
+        // Verify that the ListView is empty
+        onView(withText(testEmpty)).check(matches(isDisplayed()));
     }
 
 }
